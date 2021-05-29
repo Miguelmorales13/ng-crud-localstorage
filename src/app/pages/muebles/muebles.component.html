@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-12">
+    <div class="table-responsive">
+      <table class="table table-bordered caption-top">
+        <caption>
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <div class="row w-100">
+                <div class="col">
+                  <h3>Muebles crud</h3>
+                </div>
+                <div class="col d-flex flex-row-reverse">
+                  <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#form"> add
+                  </button>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </caption>
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Opciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let mueble of storageService.muebles">
+          <th>{{mueble.id}}</th>
+          <td>{{mueble.nombre}}</td>
+          <td>{{mueble.precio}}</td>
+          <td>
+            <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#form" (click)="setMueble(mueble.id)"> Actualizar </button>
+            <button class="btn btn-secondary" (click)="handleDelete(mueble.id)">Eliminar</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="formLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="formLabel">{{muebleSeleccionado.id ?'Actualizar':'Crear'}} mueble</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row" #form="ngForm" (ngSubmit)="onSubmit(form)">
+          <div class="col-12">
+            <label for="id"  class="form-label">#</label>
+            <input type="text" name="id"  #id="ngModel" disabled [(ngModel)]="muebleSeleccionado.id" class="form-control" id="id">
+          </div>
+          <div class="col-12">
+            <label for="nombre"  class="form-label">Nombre</label>
+            <input type="text" name="nombre" required #nombre="ngModel" [(ngModel)]="muebleSeleccionado.nombre" class="form-control" id="nombre">
+          </div>
+          <div class="col-12">
+            <label for="precio"  class="form-label">Precio</label>
+            <input type="number" name="precio" required #precio="ngModel" [(ngModel)]="muebleSeleccionado.precio" class="form-control" id="precio">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit(form)">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
