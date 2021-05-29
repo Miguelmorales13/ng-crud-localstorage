@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  banxicoToknen:'----',
+  banxicoUrl:'https://www.banxico.org.mx/'
 };
